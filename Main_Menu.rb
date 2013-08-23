@@ -20,14 +20,17 @@
 #an id is entered, the contact with that id is deleted.
 
 #7. ...if exit is typed, I am exited out of the program and returned to the command line.
-
+require "./database"
 
 
 class CRM
   def main_menu
     print_main_menu
-    user_selected = gets.to_i
-    call_option(user_selected)
+    @user_selected = gets.to_i
+    call_option(@user_selected)
+    while @user_selected != 6
+      main_menu
+    end
   end
 
   def print_main_menu
@@ -41,14 +44,42 @@ class CRM
   end
 
   def call_option(user_selected)
-    Contact.add_new_contact if user_selected == 1
-    Contact.modify_existing_contact if user_selected == 2
+    add_new_contact if user_selected == 1
+    modify_existing_contact if user_selected == 2
     Delete a contact if user_selected == 3
-    Display all the contacts if user_selected == 4
+    display_all_contacts if user_selected == 4
     Display an attribute if user_selected == 5
-    Exit if user_selected == 6
+    exit if user_selected == 6
   end
   
+  def add_new_contact
+    print "Enter First Name: "
+    first_name = gets.chomp
+    print "Enter Last Name: "
+    last_name = gets.chomp
+    print "Enter Email Address: "
+    email = gets.chomp
+    print "Enter a Note: "
+    note = gets.chomp
+    @contact = Contact.new(first_name, last_name, email, note)
+    Database.add_contact(@contact)
+  end
+
+
+
+  def modify_existing_contact 
+    puts "Please enter the id of the contact you want to modify"
+    id_modified = gets.to_i
+    puts "Are you sure? (Yes/No)"
+    decide_to_modify = gets.chomp
+    #display attribute
+
+  end
+
+  def display_all_contacts
+    Database.display_databse(@contact)
+  end
+
 end
 
 class Contact
@@ -59,48 +90,11 @@ class Contact
     @last_name = last_name
     @email = email
     @note = note
-    @change_id = id
-  end
-
-  def self.add_new_contact
-    print "Enter First Name: "
-    first_name = gets.chomp
-    print "Enter Last Name: "
-    last_name = gets.chomp
-    print "Enter Email Address: "
-    email = gets.chomp
-    print "Enter a Note: "
-    note = gets.chomp
-    contact = Contact.new(first_name, last_name, email, note)
-  end
-
-  def self.modify_existing_contact 
-    puts "Please enter the id of the contact you want to modify"
-    id_modified = gets.to_i
-    puts "Are you sure? (Yes/No)"
-    decide_to_modify = gets.chomp
-  end
-
-end
-
-class Database
-  @contacts = []
-  @id = 1000
-
-  def self.add_contact(contact)
-    contact.id = @id
-    @contacts << contact
-    @id += 1
-  end
-
-  def self.contacts
-    @contacts
   end
 
 end
 
 a_crm_app = CRM.new
 a_crm_app.main_menu
-
 
 
