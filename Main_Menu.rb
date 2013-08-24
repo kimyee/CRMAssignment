@@ -34,7 +34,7 @@ class CRM
   end
 
   def print_main_menu
-    puts "[1] Add a new contact"
+    puts "[1] Add a new contact" 
     puts "[2] Modify an existing contact"
     puts "[3] Delete a contact"
     puts "[4] Display all the contacts"
@@ -61,10 +61,9 @@ class CRM
     email = gets.chomp
     print "Enter a Note: "
     note = gets.chomp
-    @contact = Contact.new(first_name, last_name, email, note)
-    Database.add_contact(@contact)
+    contact = Contact.new(first_name, last_name, email, note)
+    Database.add_contact(contact)
   end
-
 
 
   def modify_existing_contact 
@@ -77,7 +76,7 @@ class CRM
   end
 
   def display_all_contacts
-    Database.display_databse(@contact)
+    Database.display_database
   end
 
 end
