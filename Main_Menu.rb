@@ -34,21 +34,21 @@ class CRM
   end
 
   def print_main_menu
-    puts "[1] Add a new contact" 
+    puts "[1] Add a new contact" #done
     puts "[2] Modify an existing contact"
     puts "[3] Delete a contact"
-    puts "[4] Display all the contacts"
+    puts "[4] Display all the contacts" #done
     puts "[5] Display an attribute" 
-    puts "[6] Exit"
+    puts "[6] Exit" #done
     puts "Enter a number: "
   end
 
   def call_option(user_selected)
-    add_new_contact if user_selected == 1
+    add_new_contact         if user_selected == 1
     modify_existing_contact if user_selected == 2
     Delete a contact if user_selected == 3
     display_all_contacts if user_selected == 4
-    Display an attribute if user_selected == 5
+    display_attribute_menu if user_selected == 5
     exit if user_selected == 6
   end
   
@@ -63,6 +63,7 @@ class CRM
     note = gets.chomp
     contact = Contact.new(first_name, last_name, email, note)
     Database.add_contact(contact)
+    puts "Contact added"
   end
 
 
@@ -76,8 +77,23 @@ class CRM
   end
 
   def display_all_contacts
+    puts "databse" 
     Database.display_database
   end
+
+  def display_attribute_menu
+    puts "[1] ID"
+    puts "[2] First Name"
+    puts "[3] Last Name"
+    puts "[4] Email"
+    puts "[5] Note"
+    puts "Enter a number: "
+    attribute_selected = gets.chomp
+    puts attribute_selected
+    Database.display_attribute(attribute_selected)
+    main_menu
+  end
+
 
 end
 
