@@ -31,13 +31,14 @@ class Database
   end
 
   def self.display_attribute(attribute_selected)
+    puts attribute_selected == 1
     puts attribute_selected
     @contacts.each do |contact|
-      puts "ID: #{contact.id}" if attribute_selected == 1
-      puts "First Name: #{contact.first_name}" if attribute_selected == 2
-      puts "Last Name: #{contact.last_name}" if attribute_selected == 3
-      puts "Email: #{contact.email}" if attribute_selected == 4
-      puts "Note: #{contact.note}" if attribute_selected == 5
+      puts "ID: #{contact.id}" if attribute_selected == "1"
+      puts "First Name: #{contact.first_name}" if attribute_selected == "2"
+      puts "Last Name: #{contact.last_name}" if attribute_selected == "3"
+      puts "Email: #{contact.email}" if attribute_selected == "4"
+      puts "Note: #{contact.note}" if attribute_selected == "5"
     end
   end
 end
